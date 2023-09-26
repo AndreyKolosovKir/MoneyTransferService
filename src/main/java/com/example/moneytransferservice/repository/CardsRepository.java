@@ -28,4 +28,12 @@ public class CardsRepository {
         informationTrans.put(idTrans, request.getAmount());
         return informationTrans;
     }
+
+    public Long getIdTrans() {
+        return idTrans;
+    }
+
+    public void setIdTrans(Long idTrans) {
+        this.idTrans = idTrans;
+    }
 }

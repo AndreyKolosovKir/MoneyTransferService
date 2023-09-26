@@ -20,7 +20,7 @@ public class TransferService {
     @Autowired
     Logger logger;
 
-    public List<UsersCard> performTransfer(Cards request) {
+    public Long performTransfer(Cards request) {
         if (notEmpty(request) && notEmptyNull(request) && notEmptyAmount(request)) {
 
             UsersCard user1 = null;
@@ -42,7 +42,7 @@ public class TransferService {
 
             logger.logCardsRepositoryData(repository.putInformationCards(request), repository.putInformationTrans(request));
             logger.logServiceData(dataUserInformation);
-            return dataUserInformation;
+            return repository.getIdTrans();
         }
         throw new RuntimeException("The user did not fill in all fields");
     }
