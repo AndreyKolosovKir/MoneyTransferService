@@ -34,7 +34,7 @@ public class Logger {
                 writer.write("Card To Number: " + entry.getValue().getCardToNumber() + "\n");
                 writer.write("Amount: " + entry.getValue().getAmount().getValue() + " " +
                         entry.getValue().getAmount().getCurrency() + "\n");
-                writer.write("\n"); // Разделяем записи пустой строкой
+                writer.write("\n");
             }
 
             writer.write("\n");
