@@ -5,7 +5,6 @@ import com.example.moneytransferservice.information.Cards;
 import com.example.moneytransferservice.information.UsersCard;
 import com.example.moneytransferservice.loger.Logger;
 import com.example.moneytransferservice.repository.CardsRepository;
-import lombok.extern.flogger.Flogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +20,18 @@ public class TransferService {
     @Autowired
     Logger logger;
 
-    public List<UsersCard> getSolutionOnTranslation(Cards request) {
+    public List<UsersCard> performTransfer(Cards request) {
         if (notEmpty(request) && notEmptyNull(request) && notEmptyAmount(request)) {
 
             UsersCard user1 = null;
             UsersCard user2 = null;
             user1.setUserNumberCard(request.getCardFromNumber());
             user2.setUserNumberCard(request.getCardToNumber());
+
+            if (user1 == null || user2 == null) {
+                throw new RuntimeException("Invalid card numbers");
+            }
+
             user1.setAmountOfMoney(user1.getAmountOfMoney() - request.getAmount().getValue());
             user2.setAmountOfMoney(user2.getAmountOfMoney() + request.getAmount().getValue());
 
@@ -36,8 +40,9 @@ public class TransferService {
             dataUserInformation.add(user1);
             dataUserInformation.add(user2);
 
-            Logger.logCardsRepositoryData(repository.putInformationCards(request), repository.putInformationTrans(request));
-            return logger.logServiceData(dataUserInformation);
+            logger.logCardsRepositoryData(repository.putInformationCards(request), repository.putInformationTrans(request));
+            logger.logServiceData(dataUserInformation);
+            return dataUserInformation;
         }
         throw new RuntimeException("The user did not fill in all fields");
     }

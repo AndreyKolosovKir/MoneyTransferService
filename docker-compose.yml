@@ -1,0 +1,6 @@
+version: '1'
+services:
+  app:
+    image: 'myapp:1.0'
+    ports:
+      - '5500:5500'
