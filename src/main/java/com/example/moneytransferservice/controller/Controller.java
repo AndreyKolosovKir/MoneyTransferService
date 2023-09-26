@@ -32,7 +32,6 @@ public class Controller {
 
     @PostMapping("/confirmOperation")
     public void confirmOperation(@RequestBody ConfirmationRequest confirmationRequest) {
-        // Здесь обработайте запрос для /confirmOperation
-        // Используйте confirmationRequest.operationId и confirmationRequest.secretCode
+
     }
 }
