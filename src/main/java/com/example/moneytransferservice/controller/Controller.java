@@ -22,30 +22,42 @@ public class Controller {
 
     @PostMapping("/transfer")
     public ResponseEntity<?> getDescription(@RequestBody Cards request) {
-        //TODO подумать как ввести отлов и вывод 400 и 500 ошибок
-//        try {
+        try {
             String operationId = String.valueOf(service.performTransfer(request));
             Map<String, String> response = new HashMap<>();
             response.put("operationId", operationId);
             return ResponseEntity.ok(response);
-//        } catch (CustomException400 e) {
-//            Map<String, Object> errorResponse = new HashMap<>();
-//            errorResponse.put("message", "Error customer message");
-//            errorResponse.put("id", 400);
-//            return ResponseEntity.badRequest().body(errorResponse);
-//        } catch (CustomException500 e) {
-//            Map<String, Object> errorResponse = new HashMap<>();
-//            errorResponse.put("message", e.getMessage());
-//            errorResponse.put("id", 500);
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
-//        }
+        } catch (CustomException400 e) {
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", "Error customer message");
+            errorResponse.put("id", 400);
+            return ResponseEntity.badRequest().body(errorResponse);
+        } catch (CustomException500 e) {
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", e.getMessage());
+            errorResponse.put("id", 500);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
     }
 
     @PostMapping("/confirmOperation")
     public ResponseEntity<?> confirmOperation(@RequestBody ConfirmationRequest confirmationRequest) {
+        try {
             String operationId = String.valueOf(confirmationRequest.getOperationId());
             Map<String, String> response = new HashMap<>();
             response.put("operationId", operationId);
             return ResponseEntity.ok(response);
+        } catch (CustomException400 e) {
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", "Error customer message");
+            errorResponse.put("id", 400);
+            return ResponseEntity.badRequest().body(errorResponse);
+        } catch (CustomException500 e) {
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("message", e.getMessage());
+            errorResponse.put("id", 500);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
+
     }
 }
